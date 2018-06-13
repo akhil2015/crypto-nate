@@ -1,9 +1,9 @@
 const express = require('express');
 const MetaAuth = require('meta-auth');
-
+var pug = require('pug');
 const app = express();
 const metaAuth = new MetaAuth();
-
+const url = require('url');  
 app.use('/', express.static('.'));
 
 app.get('/auth/:MetaAddress', metaAuth, (req, res) => {
@@ -12,7 +12,10 @@ app.get('/auth/:MetaAddress', metaAuth, (req, res) => {
     res.send(req.metaAuth.challenge)
   }
 });
-
+app.get('/send',function(req,res){
+    var user_id = req.param('id');
+    res.render('donate.pug', { address: user_id });
+});
 app.get('/auth/:MetaMessage/:MetaSignature', metaAuth, (req, res) => {
   if (req.metaAuth && req.metaAuth.recovered) {
     // Signature matches the cache address/challenge
