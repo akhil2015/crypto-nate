@@ -1,8 +1,6 @@
 const express = require('express');
 const MetaAuth = require('meta-auth');
 var pug = require('pug');
-var MongoClient = require('mongodb').MongoClient;
-var db_url = 'mongodb://localhost/crypto_users';
 
  
 const app = express();
@@ -30,10 +28,7 @@ app.get('/auth/:MetaMessage/:MetaSignature', metaAuth, (req, res) => {
   if (req.metaAuth && req.metaAuth.recovered) {
     // Signature matches the cache address/challenge
     // Authentication is valid, assign JWT, etc.
-    console.log(req.metaAuth.recovered)
-    MongoClient.connect(db_url, function(err, db) {
-    console.log(db.getName())
-    });//store this in db
+    console.log(req.metaAuth.recovered)//store this in db
     res.send(req.metaAuth.recovered);
   } else {
     // Sig did not match, invalid authentication
