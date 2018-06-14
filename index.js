@@ -33,8 +33,7 @@ app.get('/auth/:MetaMessage/:MetaSignature', metaAuth, (req, res) => {
     console.log(req.metaAuth.recovered)
     MongoClient.connect(db_url, function(err, db) {
     console.log(db.getName())
-
-});//store this in db
+    });//store this in db
     res.send(req.metaAuth.recovered);
   } else {
     // Sig did not match, invalid authentication
