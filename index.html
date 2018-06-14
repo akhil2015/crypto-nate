@@ -3,11 +3,18 @@
 
 </head>
 <body>
-  <h1 class="success" style="display: none;">Authentication Success</h1>
+  <div class="success" style="display: none;">
+    <form action="/register" name="reg-form">
+      Name: <input type="text" name="name">
+      Email: <input type="text" name="email">
+      <input type="submit" value="Register">
+    </form>
+  </div>
+  
   <h1 class="fail" style="display: none;">Authentication Failed</h1>
-<button class="get">Get Challenge</button>
+<button class="get">SIGN UP</button>
 
-<button class="verify">Verify Signature</button>
+<button class="verify">NEXT</button>
 
 <pre class="challenge"></pre>
 <pre class="signature"></pre>
@@ -36,6 +43,7 @@ let signature = null;
         $('.challenge').append('<br>');
         $('.challenge').append(line.value);
         $('.challenge').append('<br>');
+        $('.challenge').append('Initiated Sign Up process.');
       })
 
 
@@ -65,6 +73,10 @@ let signature = null;
     $.get('http://localhost:3001/auth/' + challenge[1].value + '/' + signature, (res) => {
       if (res === web3.eth.accounts[0]) {
         $('.success').show();
+        $('.challenge').hide();
+        $('.signature').hide();
+        $('.get').hide();
+        $('.verify').hide();
       } else {
         $('.fail').show();
       }
