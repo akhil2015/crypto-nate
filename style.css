@@ -13,5 +13,25 @@
 }
 #comment{
 	height:100px;
+	width:290px;
+}
+.comment-label{
+	margin-top: 80px;
+}
+body{
+	background: #222;
+	font-family: Arial;
+}
+.container{
+	height:500px;
 	width:300px;
+	background: black;
+	border: 4px double white;
+	margin:auto;
+	color:white;
+	text-align: center;
+}
+.container h4 {
+	width:300px;
+	font-size: 12px;
 }
