@@ -11,7 +11,7 @@
 .tip-button:active {
   background-image: url('images/1_pay_mm_off.png');
 }
-.comment{
+#comment{
 	height:100px;
 	width:300px;
 }

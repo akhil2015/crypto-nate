@@ -5,6 +5,7 @@ tipButton.addEventListener('click', function() {
   if (typeof web3 === 'undefined') {
     return renderMessage('<div>You need to install <a href=“https://metmask.io“>MetaMask </a> to use this feature.  <a href=“https://metmask.io“>https://metamask.io</a></div>')
   }
+
   var user_address = web3.eth.accounts[0]
   web3.eth.sendTransaction({
     to: MY_ADDRESS,
@@ -16,7 +17,14 @@ tipButton.addEventListener('click', function() {
     // or if you want to guarantee it was received, you can poll
     // for that transaction to be mined first.
     renderMessage('Thanks for the generosity!! We will forward your message')
-  })
+    
+    var msg = document.getElementById('comment').value;
+    console.log(MY_ADDRESS);
+    console.log(msg); //send message data to server
+
+    url =('/msg?address='+MY_ADDRESS+'&msg='+msg);
+    window.location.href = url;
+  });
 })
 function renderMessage (message) {
   var messageEl = document.querySelector('.message')
