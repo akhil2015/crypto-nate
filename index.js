@@ -46,6 +46,7 @@ app.get('/register',metaAuth,function (req,res){
           });
     });
     console.log(name,email) //save this in db alog with last entry
+    res.render('success.pug')
 });
 app.get('/msg',(req,res) => {
       var address = req.param('address');
