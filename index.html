@@ -18,6 +18,9 @@
       color:white;
       text-align: center;
     }
+    #otp{
+      color: black;
+    }
     .success{
       padding-top: 50px;
     }
@@ -129,6 +132,7 @@
     <div class="success" style="display: none;">
     <form action="/register" name="reg-form" method="post">
       STEP 2: ENTER YOUR DETAILS <br>
+      OTP: <input type="number" disabled id="otp">
       Name: <input type="text" name="name"> <br>
       Email: <input type="text" name="email"> <br>
       <input class ="sub"type="submit" value="Register">
@@ -206,7 +210,8 @@ let signature = null;
 
   $('.verify').on('click', function() {
     $.get('/auth/' + challenge[1].value + '/' + signature, (res) => {
-      if (res === web3.eth.accounts[0]) {
+      if (res.auth === web3.eth.accounts[0]) {
+        $('#otp').val(res.otp);
         $('.success').show();
         $('.challenge').hide();
         $('.signature').hide();
