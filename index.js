@@ -12,7 +12,16 @@ const mongo = require('./mongo.js');
 
 const app = express();
 const metaAuth = new MetaAuth();
-const url = require('url');  
+const url = require('url');
+
+const bodyParser = require("body-parser");
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(
+    bodyParser.urlencoded({
+        extended: true
+    })
+); // for parsing application/x-www-form-urlencoded
 
 app.use('/', express.static('.'));
 
@@ -33,9 +42,9 @@ app.get('/send',function(req,res){
     res.render('donate.pug', { address: user_id });
 });
 
-app.get('/register',metaAuth,function (req,res){
-    var name = req.param('name');
-    var email = req.param('email');
+app.post('/register',metaAuth,function (req,res){
+    var name = req.body.name;
+    var email = req.body.email;
     mongo.registerWithNameAndEmail(name, email, function () {
         console.log(name, email); //save this in db alog with last entry
         res.render('success.pug')
@@ -73,7 +82,7 @@ app.post('/message-received', (req, res) => {
 
 });
 
-app.listen(3001, () => {
+app.listen(3002, () => {
     mongo.connect(function () {
         console.log('Listening on port 3001');
     });

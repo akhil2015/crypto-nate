@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -22,9 +22,11 @@
   },
   "homepage": "https://github.com/akhil2015/crypto-nate#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "meta-auth": "^1.1.2",
     "mongodb": "^3.0.10",
+    "nodemon": "^1.17.5",
     "pug": "^2.0.3",
     "url": "^0.11.0"
   }

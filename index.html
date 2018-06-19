@@ -127,7 +127,7 @@
     </div>
   <div class="container-box">
     <div class="success" style="display: none;">
-    <form action="/register" name="reg-form">
+    <form action="/register" name="reg-form" method="post">
       STEP 2: ENTER YOUR DETAILS <br>
       Name: <input type="text" name="name"> <br>
       Email: <input type="text" name="email"> <br>
@@ -165,7 +165,7 @@ let signature = null;
 
   $('.get').on('click', function () {
     $('.challenge').empty();
-    $.get('http://localhost:3001/auth/' + web3.eth.accounts[0], (res) => {
+    $.get('/auth/' + web3.eth.accounts[0], (res) => {
       challenge = res
 
       console.log(res)
@@ -205,7 +205,7 @@ let signature = null;
   });
 
   $('.verify').on('click', function() {
-    $.get('http://localhost:3001/auth/' + challenge[1].value + '/' + signature, (res) => {
+    $.get('/auth/' + challenge[1].value + '/' + signature, (res) => {
       if (res === web3.eth.accounts[0]) {
         $('.success').show();
         $('.challenge').hide();
