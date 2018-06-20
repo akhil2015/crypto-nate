@@ -18,6 +18,9 @@
       text-align: center;
       margin-top:20px;
     }
+    #otp{
+      color: black;
+    }
     .success{
       padding-top: 50px;
     }
@@ -128,10 +131,9 @@
     </div>
   <div class="container-box">
     <div class="success" style="display: none;">
-    <form action="/register" name="reg-form">
+    <form action="/register" name="reg-form" method="post">
       STEP 2: ENTER YOUR DETAILS <br>
-      Name: <input type="text" name="name"> <br>
-      Email: <input type="text" name="email"> <br>
+      OTP: <input type="number" name="otp" readonly id="otp">
       <input class ="sub"type="submit" value="Register">
     </form>
     </div>
@@ -166,7 +168,7 @@ let signature = null;
 
   $('.get').on('click', function () {
     $('.challenge').empty();
-    $.get('http://localhost:3001/auth/' + web3.eth.accounts[0], (res) => {
+    $.get('/auth/' + web3.eth.accounts[0], (res) => {
       challenge = res
 
       console.log(res)
@@ -206,8 +208,9 @@ let signature = null;
   });
 
   $('.verify').on('click', function() {
-    $.get('http://localhost:3001/auth/' + challenge[1].value + '/' + signature, (res) => {
-      if (res === web3.eth.accounts[0]) {
+    $.get('/auth/' + challenge[1].value + '/' + signature, (res) => {
+      if (res.auth === web3.eth.accounts[0]) {
+        $('#otp').val(res.otp);
         $('.success').show();
         $('.challenge').hide();
         $('.signature').hide();
