@@ -4,9 +4,13 @@ html
 	link(href="style.css" rel="stylesheet" type="text/css")
 	body
 		div(class = "container")
-			h1 CRYPTO-NATE
+			div(class="logo")
+				span MSGCRYPTO
 			p Sending ETH to: 
 				h4(id="address") #{address}
+			label Sending:
+			input(typ="number" id="amount" value="0.1") 
+			span(class="currency") ETH
 			p(class="comment-label") Leave a message:
 			textarea(id="comment")
 			div(class="tip-button")
