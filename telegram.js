@@ -2,7 +2,7 @@ const axios = require('axios');
 
 module.exports = {
 
-    token_id : '561087037:AAGTUauJFOCSDj8zninHVdI4S8yJ52qtHeE',
+    token_id : '595973903:AAGNXvJ9k8dxgGz3KGT9sUs5jymAOSRz0LQ',
 
     sendMessage : function sendMessage(id, message, callback) {
     let url = 'https://api.telegram.org/bot' + this.token_id + '/sendMessage';
@@ -12,7 +12,7 @@ module.exports = {
             text : message
         }
     }).then(function (response) {
-        callback(true);
+        if(callback) callback(true);
     }).catch(function (error) {
         throw error
     });

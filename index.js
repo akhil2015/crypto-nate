@@ -1,7 +1,7 @@
 
 const express = require('express');
 const MetaAuth = require('meta-auth');
-var pug = require('pug');
+const pug = require('pug');
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
@@ -20,6 +20,7 @@ const bodyParser = require("body-parser");
 let otpArray = [0];
 let id_who_have_otp_requested = [{}];
 let otpsSent = [0];
+let current_time = 0;
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(
@@ -51,6 +52,7 @@ app.post('/register',metaAuth,function (req,res){
     var name = req.body.name;
     var email = req.body.email;
     let otp = req.body.otp;
+    console.log(otp, " From Frontend");
     otpArray.push({otp : otp, email : email});
     mongo.registerWithNameAndEmail(name, email, function () {
         console.log(name, email); //save this in db alog with last entry
@@ -91,7 +93,6 @@ function generateOTP(){
     let number;
     while(true){
         number = Math.floor(100000 + Math.random() * 900000);
-        console.log(number);
         if(otpsSent.findIndex(function (ele) {
             return ele === number;
         }) <= 0){
@@ -104,6 +105,7 @@ function generateOTP(){
 app.post('/message-received', (req, res) => {
     console.log("message = ", req.body.message.text);
     let id = req.body.message.from.id;
+    // if(req.body.message.)
     if(telegram.checkForFirstMessage(req.body.message)){
         let id = req.body.message.from.id;
         let name = req.body.message.from.first_name;
@@ -111,12 +113,14 @@ app.post('/message-received', (req, res) => {
         let message = "Hi! " + name + ". Please Enter the OTP Given To You";
         telegram.sendMessage(id, message, function () {
             id_who_have_otp_requested.push(id);
-            console.log("Sent")
+            console.log("Sent");
+            res.sendStatus(200);
         })
     }else{
         let chat_id_idx = otpSentOrNot(id);
         if(chat_id_idx >= 0){
-            let msg = req.body.message;
+            console.log("OTP Already Sent");
+            let msg = req.body.message.text;
 
             let idx = otpArray.findIndex(function (ele) {
                 return ele.otp == msg;
@@ -124,18 +128,21 @@ app.post('/message-received', (req, res) => {
 
             if(idx === -1){
                 telegram.sendMessage(id, "OTP! Incorrect...");
+                res.sendStatus(200);
             }else{
+                console.log("OTP Correct");
                 let email = otpArray.splice(idx, 1).email;
-                chat_id_idx.splice(chat_id_idx, 1);
+                id_who_have_otp_requested.splice(chat_id_idx, 1);
                 console.log(email);
+                telegram.sendMessage(id, "OTP Matched");
+                res.sendStatus(200);
             }
 
         }else{
             console.log("Good Old Message", req.body.message);
-            let msg = req.body.message;
             let id = req.body.message.from.id;
             mongo.storeMessageinDb(id, msg, function () {
-                res.send();
+                res.sendStatus(200);
             })
         }
     }
@@ -149,6 +156,7 @@ function otpSentOrNot(id){
 
 app.listen(3002, () => {
     mongo.connect(function () {
-        console.log('Listening on port 3002');
+        current_time = new Date().getTime();
+        console.log('Listening on port 3002', current_time);
     });
 });
