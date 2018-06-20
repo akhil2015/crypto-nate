@@ -6,11 +6,12 @@ tipButton.addEventListener('click', function() {
     return renderMessage('<div>You need to install <a href=“https://metmask.io“>MetaMask </a> to use this feature.  <a href=“https://metmask.io“>https://metamask.io</a></div>')
   }
 
-  var user_address = web3.eth.accounts[0]
+  var user_address = web3.eth.accounts[0];
+  var amount = document.getElementById('amount').value;
   web3.eth.sendTransaction({
     to: MY_ADDRESS,
     from: user_address,
-    value: web3.toWei('0.1', 'ether'),
+    value: web3.toWei(amount, 'ether'),
   }, function (err, transactionHash) {
     if (err) return renderMessage('There was a problem!: ' + err.message)
     // If you get a transactionHash, you can assume it was sent,
