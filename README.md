@@ -1,2 +1,2 @@
 # crypto-nate
-crypto-nate is built as an open donation platform with messages.
+MsgCrypto allows your followers to donate crypto alongside a msg of love♥
