@@ -2,6 +2,7 @@
 <head>
   <style>
     body{
+      background: #222;
       font-family: Karla;
       margin:0;
       padding: 0;
@@ -10,13 +11,12 @@
     .container-box{
       height:500px;
       width:300px;
-      background: #2E2E2E;
-      border-radius: 4px;
-      border: 4px solid #535DF1;
+      background: black;
+      border-radius: 5px;
+      border: 4px double #ef6c00;
       margin:auto;
       color:white;
       text-align: center;
-      margin-top:20px;
     }
     #otp{
       color: black;
@@ -34,7 +34,7 @@
       height:80px;
       width:250px;
       color:white;
-      background:#535DF1 ;
+      background: #ef6c00;
       font-size: 2em;
     }
     .container{
@@ -53,7 +53,6 @@
       color:#2E2E2E;
       font-size: 2em;
       font-family: Gilroy;
-      font-weight: bold;
 
     }
     .banner p{
@@ -93,6 +92,27 @@
     .working{
       text-align: center;
     }
+    .card h2{
+        font-family: Karla;
+    }
+    .card{
+      margin:4%;
+      margin-top:10px;
+      box-shadow: 0px 0 7px 0 #CCC;
+      font-family: Gilroy;
+      transition: 0.6s ease;
+    }
+    .card p{
+      font-size: 1.3em;
+    }
+    .card i{
+      font-size:5em;
+      padding:10px;
+      color:#464A78;
+    }
+    .card:hover{
+      box-shadow: 7px 0 7px 0 #CCC;
+    }
     footer{
       background: #535DF1;
       color:white;
@@ -104,6 +124,7 @@
       padding: 0;
     }
   </style>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
@@ -117,6 +138,7 @@
       <div class="container">
         <img src="./img/top-right.png" alt="">
         <h2>ETHER FOR THE PEOPLE <br>BY THE PEOPLE</h2>
+        <i class="fas fa-address-book"></i>
         <p>MsgCrypto allows your followers to donate crypto alongside a msg of love♥</p>
         <button>TRY IT NOW</button>
       </div>
@@ -124,9 +146,21 @@
     </div>
     <div class="working">
       <div class="row">
-        <div class="col-md-4 col-xs-12"></div>
-        <div class="col-md-4 col-xs-12"></div>
-        <div class="col-md-4 col-xs-12"></div>
+        <div class="col-md-3 col-xs-12 card">
+          <h2>Sign Up & Create a Unique URL</h2>
+         <i class="fas fa-address-book"></i>
+          <p>Sign a message to prove ownership of ethereum address and link one of your social media profiles to receive the messages.Get a unique url according to your ethereum address</p>
+        </div>
+        <div class="col-md-3 col-xs-12 card">
+          <h2> Share Unique URL With Your Followers</h2>
+          <i class="fas fa-desktop"></i>
+          <p>Share the unique URL to your followers in the donate section of your page.Your followers click on the URL and send you crypto and a msg with it.</p>
+        </div>
+        <div class="col-md-3 col-xs-12 card">
+          <h2> Read Msgs of Love & Thank Your Followers</h2>
+          <i class="fab fa-angellist"></i>
+          <p>On the linked social media profile, read the mgs of your gracious followers who took the time out to donate and send you a msg of love.Thank them by mentioning their msg on one of your posts</p>
+        </div>
       </div>
     </div>
   <div class="container-box">
