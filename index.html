@@ -18,8 +18,8 @@
       color:white;
       text-align: center;
     }
-    #otp{
-      color: black;
+    #otp, #address{
+      color: black!important;
     }
     .success{
       padding-top: 50px;
@@ -167,7 +167,9 @@
     <div class="success" style="display: none;">
     <form action="/register" name="reg-form" method="post">
       STEP 2: ENTER YOUR DETAILS <br>
-      OTP: <input type="number" name="otp" readonly id="otp">
+      <a href="http://telegram.me/HP_BoyBot" target="_blank">Click Here To Get the OTP</a>
+      OTP: <input type="text" name="otp" id="otp">
+      Ethereum Address: <input type="text" name="address"  readonly id="address">
       <input class ="sub"type="submit" value="Register">
     </form>
     </div>
@@ -244,7 +246,7 @@ let signature = null;
   $('.verify').on('click', function() {
     $.get('/auth/' + challenge[1].value + '/' + signature, (res) => {
       if (res.auth === web3.eth.accounts[0]) {
-        $('#otp').val(res.otp);
+        $('#address').val(res.auth);
         $('.success').show();
         $('.challenge').hide();
         $('.signature').hide();
