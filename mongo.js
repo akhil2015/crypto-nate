@@ -6,9 +6,6 @@ const Hashids = require('hashids');
 const hashids = new Hashids();
 
 module.exports = {
-
-    count : 0,
-
     connect : function (callback) {
         let self = this;
         mongodb.connect(db_url, function (err, database) {
@@ -18,32 +15,28 @@ module.exports = {
         });
     },
 
-    registerWithNameAndAddress : function (name, address, callback) {
+    registerWithNameAndAddress : function (name, address, id, callback) {
         let self = this;
-        self.count++;
-        let uid = hashids.encode(self.count);
-        console.log("uid=", uid);
-
         self.obj.collection('user_data').findOneAndUpdate({
             address : address
         }, {
             address : address,
             first_name : name,
-            uid : uid
+            id : id
         }, function (err, result) {
             if(err) throw err;
             if(result.value !== null){
                 console.log("Updated to Database");
-                if(callback) callback(uid);
+                if(callback) callback();
             }else{
                 self.obj.collection('user_data').insertOne({
                     address : address,
                     first_name : name,
-                    uid : uid
+                    id : id
                 }, function (err1) {
                     if(err1) throw err1;
                     console.log("Added to Database");
-                    if(callback) callback(uid);
+                    if(callback) callback();
                 });
             }
         });
@@ -58,14 +51,28 @@ module.exports = {
         });
     },
 
-    getAddressFromUid : function (uid, callback) {
+    checkAddressInDb : function (address, callback) {
         let self = this;
         self.obj.collection('user_data').findOne({
-            uid : uid
+            address : address
         }, function (err, result) {
             if(err) throw err;
             if(result){
-                if(callback) callback(result.address);
+                if(callback) callback(true);
+            }else{
+                if(callback) callback(false);
+            }
+        })
+    },
+
+    getIdFromAddress : function (address, callback) {
+        let self = this;
+        self.obj.collection('user_data').findOne({
+            address : address
+        }, function (err, result) {
+            if(err) throw err;
+            if(result){
+                if(callback) callback(result.id);
             }else{
                 if(callback) callback(false);
             }

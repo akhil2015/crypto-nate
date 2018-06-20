@@ -37,10 +37,10 @@ app.get('/auth/:MetaAddress', metaAuth, (req, res) => {
   }
 });
 
-app.get('/send',function(req,res){
-    var uid = req.param('id');
-    mongo.getAddressFromUid(uid, function (address) {
-        if(address){
+app.get('/:address',function(req,res){
+    var address = req.params.address;
+    mongo.checkAddressInDb(address, function (bool) {
+        if(bool){
             res.render('donate.pug', { address: address });
         }else{
             res.sendStatus(404);
@@ -59,8 +59,9 @@ app.post('/register',metaAuth,function (req,res){
     if(element.verified){
         let name = element.name;
         let address = element.address;
-        mongo.registerWithNameAndAddress(name, address, function (uid) {
-            let url = randomURL + "/send?id=" + uid;
+        let id = element.id;
+        mongo.registerWithNameAndAddress(name, address, id, function () {
+            let url = randomURL + "/" + address;
             res.render('success.pug', {url : url});
         });
     }
@@ -69,12 +70,19 @@ app.post('/register',metaAuth,function (req,res){
 app.get('/msg',(req,res) => {
      var address = req.param('address');
      var msg = req.param('msg');
-     //console.log(req);
+     mongo.getIdFromAddress(address, function (id) {
+        if(id){
+            telegram.sendMessage(id, msg, function () {
+                mongo.storeMessageinDb(address, msg, function () {
+                    res.sendStatus(200);
+                })
+            })
+        }else{
+            res.sendStatus(404);
+        }
+     });
      console.log(address,msg);
-     mongo.storeMessageinDb(address, msg, function () {
-         // TODO send message to bot
-         res.send();
-     })
+
 });
 
 app.get('/auth/:MetaMessage/:MetaSignature', metaAuth, (req, res) => {
@@ -147,6 +155,7 @@ app.post('/message-received', (req, res) => {
                     let element = otpArray[idx];
                     otpArray[idx].verified = true;
                     otpArray[idx].name = req.body.message.from.first_name;
+                    otpArray[idx].id = id;
                     id_who_have_otp_requested.splice(chat_id_idx, 1);
                     telegram.sendMessage(id, "OTP Matched. Your Ethereum Address = " + element.address);
 
