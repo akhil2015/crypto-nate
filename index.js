@@ -75,10 +75,11 @@ app.get('/auth/:MetaMessage/:MetaSignature', metaAuth, (req, res) => {
         // Authentication is valid, assign JWT, etc.
         console.log(req.metaAuth.recovered);//store this in db
         var val = req.metaAuth.recovered;
-        mongo.storeAddressinDB(val, function () {
+        var otp = generateOTP();
+        mongo.storeAddressinDB(val,otp, function () {
             res.send({
                 auth : req.metaAuth.recovered,
-                otp : generateOTP()
+                otp : otp
             });
         });
     } else {

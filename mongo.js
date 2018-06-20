@@ -39,9 +39,9 @@ module.exports = {
         });
     },
 
-    storeAddressinDB : function (val, callback) {
+    storeAddressandOTPinDB : function (val,otp, callback) {
         let self = this;
-        self.obj.collection('user_data').insertOne({address:val}, function(err, r) {
+        self.obj.collection('user_data').insertOne({address:val,otp:otp}, function(err, r) {
             assert.equal(null, err);
             assert.equal(1, r.insertedCount);
             if(callback) callback();
