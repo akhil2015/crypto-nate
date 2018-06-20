@@ -143,6 +143,7 @@ app.post('/message-received', (req, res) => {
             }else{
                 console.log("Good Old Message", req.body.message);
                 let id = req.body.message.from.id;
+                let msg = req.body.message.text;
                 mongo.storeMessageinDb(id, msg, function () {
                     res.sendStatus(200);
                 })
