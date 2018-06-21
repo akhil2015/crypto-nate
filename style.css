@@ -53,3 +53,9 @@ input{
 	font-size: 12px;
 	color:#535DF1;
 }
+.link{
+	width: 50%;
+}
+.link-content{
+	text-align: center;
+}
