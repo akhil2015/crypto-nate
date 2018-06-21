@@ -1,7 +1,7 @@
 html
 	head
 	title CRYPTO-NATE
-	link(href="style.css" rel="stylesheet" type="text/css")
+	link(href="./css/style.css" rel="stylesheet" type="text/css")
 	body
 		div(class = "container")
 			div(class="logo")
@@ -11,8 +11,9 @@ html
 			label Sending:
 			input(type="number" id="amount" value="0.1") 
 			span(class="currency") ETH
+			br
 			label From: 
-				input(type="text" id="donor" value ="anonymous")
+				input(type="text" id="donor" placeholder ="anonymous")
 			p(class="comment-label") Leave a message:
 			textarea(id="comment")
 			div(class="tip-button")
