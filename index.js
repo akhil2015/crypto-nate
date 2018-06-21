@@ -50,8 +50,10 @@ app.post('/register',metaAuth,function (req,res){
             let name = element.name;
             let id = element.id;
             mongo.registerWithNameAndAddress(name, address, id, function () {
-                telegram.sendMessage(id, "Congrats! Registered with Ethereum Address = " + address);
                 let url = randomURL + "/" + address;
+                telegram.sendMessage(id, "Congrats! Registered with Ethereum Address = " +
+                    + address + " You may give this url => (" + url + ") to your followers" +
+                    " to get Cryptos and a Message of Love.");
                 res.render('success.pug', {url : url});
             });
         }

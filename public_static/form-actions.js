@@ -74,7 +74,7 @@ $.get('/auth/' + web3.eth.accounts[0], (res) => {
                 });
                 next_fs.css({'left': left, 'opacity': opacity});
             },
-            duration: 800,
+            duration: 1000,
             complete: function(){
                 current_fs.hide();
                 animating = false;
@@ -117,7 +117,7 @@ $('#next').on('click', function() {
                     });
                     next_fs.css({'left': left, 'opacity': opacity});
                 },
-                duration: 800,
+                duration: 1000,
                 complete: function(){
                     current_fs.hide();
                     animating = false;

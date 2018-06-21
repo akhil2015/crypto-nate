@@ -2,14 +2,21 @@ const axios = require('axios');
 
 module.exports = {
 
-    token_id : '595973903:AAGNXvJ9k8dxgGz3KGT9sUs5jymAOSRz0LQ',
+    token_id : '584810302:AAE0gKoCb4lcGqsndDbAem1dBUR_E_syRy8',
 
     sendMessage : function sendMessage(id, message, callback) {
     let url = 'https://api.telegram.org/bot' + this.token_id + '/sendMessage';
     axios.get(url, {
         params : {
             chat_id : id,
-            text : message
+            text : message,
+            reply_markup : {
+                keyboard : [
+                    ["/start", "/help"],
+                ],
+                one_time_keyboard :false,
+                resize_keyboard : true
+            }
         }
     }).then(function (response) {
         if(callback) callback(true);
