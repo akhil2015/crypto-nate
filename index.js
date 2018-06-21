@@ -1,7 +1,7 @@
 const express = require('express');
 const MetaAuth = require('meta-auth');
 const pug = require('pug');
-const randomURL = 'https://4d42317e.ngrok.io';
+const randomURL = 'https://msgcrypto.herokuapp.com';
 
 const mongo = require('./mongo.js');
 const telegram = require('./telegram.js');
