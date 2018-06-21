@@ -148,9 +148,9 @@ app.post('/message-received', (req, res) => {
     }
 });
 
-app.listen(3002, () => {
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
     mongo.connect(function () {
-        current_time = new Date().getTime();
-        console.log('Listening on port 3002', current_time);
+        console.log('Listening on port = ', PORT);
     });
 });
