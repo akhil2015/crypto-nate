@@ -1,5 +1,5 @@
 const mongodb = require('mongodb').MongoClient;
-const db_url = 'mongodb://localhost:27017';
+const db_url = 'mongodb://arvind:arvind123@ds163650.mlab.com:63650/crypto-nate';
 const dbName = 'crypto_users';
 const assert = require('assert');
 const Hashids = require('hashids');
