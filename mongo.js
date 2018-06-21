@@ -1,10 +1,11 @@
 const mongodb = require('mongodb').MongoClient;
-const db_url = 'mongodb://localhost:27017';
-const dbName = 'crypto_users';
+const db_url = 'mongodb://arvind:arvind123@ds163650.mlab.com:63650/crypto-nate';
+const dbName = 'crypto-nate';
 const assert = require('assert');
+const Hashids = require('hashids');
+const hashids = new Hashids();
 
 module.exports = {
-
     connect : function (callback) {
         let self = this;
         mongodb.connect(db_url, function (err, database) {
@@ -14,19 +15,30 @@ module.exports = {
         });
     },
 
-    registerWithNameAndEmail : function (name, email, callback) {
+    registerWithNameAndAddress : function (name, address, id, callback) {
         let self = this;
-        let condn= {_id:-1};
-        let element;
-        self.obj.collection('user_data').find().sort(condn).toArray(function(err, result) {
-            if (err) throw err;
-            //console.log(result[0]);
-            //update record where result[0]
-            element = result[0];
-            self.obj.collection('user_data').updateOne(element, {$set: {name: name,email:email}}, function (err) {
-                assert.equal(null, err);
+        self.obj.collection('user_data').findOneAndUpdate({
+            address : address
+        }, {
+            address : address,
+            first_name : name,
+            id : id
+        }, function (err, result) {
+            if(err) throw err;
+            if(result.value !== null){
+                console.log("Updated to Database");
                 if(callback) callback();
-            });
+            }else{
+                self.obj.collection('user_data').insertOne({
+                    address : address,
+                    first_name : name,
+                    id : id
+                }, function (err1) {
+                    if(err1) throw err1;
+                    console.log("Added to Database");
+                    if(callback) callback();
+                });
+            }
         });
     },
 
@@ -39,12 +51,31 @@ module.exports = {
         });
     },
 
-    storeAddressinDB : function (val, callback) {
+    checkAddressInDb : function (address, callback) {
         let self = this;
-        self.obj.collection('user_data').insertOne({address:val}, function(err, r) {
-            assert.equal(null, err);
-            assert.equal(1, r.insertedCount);
-            if(callback) callback();
-        });
+        self.obj.collection('user_data').findOne({
+            address : address
+        }, function (err, result) {
+            if(err) throw err;
+            if(result){
+                if(callback) callback(true);
+            }else{
+                if(callback) callback(false);
+            }
+        })
+    },
+
+    getIdFromAddress : function (address, callback) {
+        let self = this;
+        self.obj.collection('user_data').findOne({
+            address : address
+        }, function (err, result) {
+            if(err) throw err;
+            if(result){
+                if(callback) callback(result.id);
+            }else{
+                if(callback) callback(false);
+            }
+        })
     }
 };

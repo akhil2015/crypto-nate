@@ -1,7 +1,7 @@
-
 const express = require('express');
 const MetaAuth = require('meta-auth');
 const pug = require('pug');
+const randomURL = 'https://4d42317e.ngrok.io';
 
 const mongo = require('./mongo.js');
 const telegram = require('./telegram.js');
@@ -13,8 +13,7 @@ const url = require('url');
 const bodyParser = require("body-parser");
 
 let otpArray = [];
-let id_who_have_otp_requested = [];
-let otpsSent = [];
+// let id_who_have_otp_requested = [];
 let current_time = 0;
 
 app.use(bodyParser.json()); // for parsing application/json
@@ -38,31 +37,55 @@ app.get('/auth/:MetaAddress', metaAuth, (req, res) => {
   }
 });
 
-app.get('/send',function(req,res){
-    var user_id = req.param('id');
-    res.render('donate.pug', { address: user_id });
-});
-
 app.post('/register',metaAuth,function (req,res){
-    var name = req.body.name;
-    var email = req.body.email;
     let otp = req.body.otp;
+    let address = req.body.address;
     console.log(otp, " From Frontend");
-    mongo.registerWithNameAndEmail(name, email, function () {
-        console.log(name, email); //save this in db alog with last entry
-        res.render('success.pug')
+    let idx = otpArray.findIndex(function (ele) {
+        return ele.otp == otp;
     });
+    if(idx >= 0){
+        let element = otpArray.splice(idx, 1)[0];
+        if(!element.verified){
+            let name = element.name;
+            let id = element.id;
+            mongo.registerWithNameAndAddress(name, address, id, function () {
+                telegram.sendMessage(id, "Congrats! Registered with Ethereum Address = " + address);
+                let url = randomURL + "/" + address;
+                res.render('success.pug', {url : url});
+            });
+        }
+    }else{
+        res.sendStatus(404);
+    }
 });
 
-app.get('/msg',(req,res) => {
+app.get('/msg', (req,res) => {
      var address = req.param('address');
      var msg = req.param('msg');
-     //console.log(req);
-     console.log(address,msg);
-     mongo.storeMessageinDb(address, msg, function () {
-         // TODO send message to bot
-         res.send();
-     })
+     mongo.getIdFromAddress(address, function (id) {
+        if(id){
+            telegram.sendMessage(id, msg, function () {
+                mongo.storeMessageinDb(address, msg, function () {
+                    res.sendStatus(200);
+                })
+            })
+        }else{
+            res.sendStatus(404);
+        }
+     });
+});
+
+app.get('/:address',function(req,res){
+    var address = req.params.address;
+    mongo.checkAddressInDb(address, function (bool) {
+        if(bool){
+            res.render('donate.pug', { address: address });
+        }else{
+            res.sendStatus(404);
+        }
+    });
+
 });
 
 app.get('/auth/:MetaMessage/:MetaSignature', metaAuth, (req, res) => {
@@ -70,17 +93,9 @@ app.get('/auth/:MetaMessage/:MetaSignature', metaAuth, (req, res) => {
         // Signature matches the cache address/challenge
         // Authentication is valid, assign JWT, etc.
         console.log(req.metaAuth.recovered);//store this in db
-        var val = req.metaAuth.recovered;
-        let otp = generateOTP();
-        otpArray.push({
-            address: val,
-            otp : otp
-        });
-        mongo.storeAddressinDB(val, function () {
-            res.send({
-                auth : req.metaAuth.recovered,
-                otp : otp
-            });
+
+        res.send({
+            auth : req.metaAuth.recovered
         });
     } else {
         // Sig did not match, invalid authentication
@@ -106,61 +121,36 @@ app.post('/message-received', (req, res) => {
         res.sendStatus(200);
     }else{
         console.log("message = ", req.body.message.text);
-        let id = req.body.message.from.id;
-        // if(req.body.message.)
         if(telegram.checkForFirstMessage(req.body.message)){
             let id = req.body.message.from.id;
             let name = req.body.message.from.first_name;
             console.log("Sending First Message");
-            let message = "Hi! " + name + ". Please Enter the OTP Given To You";
+            let otp = generateOTP();
+            let message = "Hi! " + name + ". Use " + otp + " as the OTP to register on the website";
             telegram.sendMessage(id, message, function () {
-                id_who_have_otp_requested.push(id);
+                otpArray.push({
+                    otp : otp,
+                    name : name,
+                    id : id,
+                    verified : false
+                });
                 console.log("Sent");
                 res.sendStatus(200);
             })
         }else{
-            let chat_id_idx = otpSentOrNot(id);
-            if(chat_id_idx >= 0){
-                console.log("OTP Already Sent");
-                let msg = req.body.message.text;
-
-                let idx = otpArray.findIndex(function (ele) {
-                    return ele.otp == msg;
-                });
-
-                if(idx === -1){
-                    telegram.sendMessage(id, "OTP! Incorrect...");
-                    res.sendStatus(200);
-                }else{
-                    console.log("OTP Correct");
-                    let element = otpArray.splice(idx, 1)[0].address;
-                    id_who_have_otp_requested.splice(chat_id_idx, 1);
-                    console.log(element);
-                    telegram.sendMessage(id, "OTP Matched. Your Ethereum Address = " + element);
-                    res.sendStatus(200);
-                }
-
-            }else{
-                console.log("Good Old Message", req.body.message);
-                let id = req.body.message.from.id;
-                let msg = req.body.message.text;
-                mongo.storeMessageinDb(id, msg, function () {
-                    res.sendStatus(200);
-                })
-            }
+            console.log("Good Old Message", req.body.message);
+            let id = req.body.message.from.id;
+            let msg = req.body.message.text;
+            mongo.storeMessageinDb(id, msg, function () {
+                res.sendStatus(200);
+            })
         }
     }
 });
 
-function otpSentOrNot(id){
-    return id_who_have_otp_requested.findIndex(function (ele) {
-        return ele === id;
-    });
-}
-
-app.listen(3002, () => {
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
     mongo.connect(function () {
-        current_time = new Date().getTime();
-        console.log('Listening on port 3002', current_time);
+        console.log('Listening on port = ', PORT);
     });
 });

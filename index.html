@@ -21,8 +21,8 @@
       text-align: center;
       font-family: Gilroy;
     }
-    #otp{
-      color: black;
+    #otp, #address{
+      color: black!important;
     }
     .success{
       padding-top: 50px;
@@ -207,6 +207,10 @@
       .arrow.activated:after{
         border-left: 17px solid #464A78;
       }
+      #address{
+        width:350px;
+        background:#DDD;
+      }
   </style>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <!-- Latest compiled and minified CSS -->
@@ -262,9 +266,11 @@
   <div class="container-box">
     <div class="success" style="display: none;">
     <form action="/register" name="reg-form" method="post">
+
       Check your telegram <br>
-      Your OTP: <input type="number" name="otp" readonly id="otp"> <br>
-      <input class ="sub" type="submit" value="Finish">
+      Enter the OTP: <input type="text" name="otp" id="otp"> <br>
+      Ethereum Address: <input type="text" name="address"  readonly id="address"> <br>
+      <input class ="sub"type="submit" value="Finish">
     </form>
     </div>
   
@@ -274,8 +280,10 @@
       <i class="fas fa-user-plus"></i>
     </p>
     <button class="get">SIGN UP</button>
-    <p class="convo" style="display: none;">Start Conversation with Our Telegrambot <br><a href="">@msgcrypto</a></p>
-    <button class="verify" style="display: none;">NEXT</button>
+    <p class="convo" style="display: none;">Start Conversation with Our Telegram bot <br>
+    <a href="http://telegram.me/HP_BoyBot" target="_blank">@msgcrypto</a>
+    </p>
+    <button class="verify" style="display: none;">ENTER OTP</button>
 
     <pre class="challenge" style="display: none;"></pre>
     <pre class="signature" style="display: none;"></pre>
@@ -345,7 +353,7 @@ let signature = null;
   $('.verify').on('click', function() {
     $.get('/auth/' + challenge[1].value + '/' + signature, (res) => {
       if (res.auth === web3.eth.accounts[0]) {
-        $('#otp').val(res.otp);
+        $('#address').val(res.auth);
         $('.success').show();
         $('.convo').hide();
         $('.step3').addClass('activated')

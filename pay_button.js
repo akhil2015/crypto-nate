@@ -1,5 +1,5 @@
 var MY_ADDRESS = document.getElementById('address').innerHTML
-alert(MY_ADDRESS) //update this to influencer's address
+// alert(MY_ADDRESS) //update this to influencer's address
 var tipButton = document.querySelector('.tip-button')
 tipButton.addEventListener('click', function() {
   if (typeof web3 === 'undefined') {

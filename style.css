@@ -18,11 +18,6 @@
 #amount{
 	margin-top: 80px;
 }
-body{
-	font-family: Arial;
-	background: url('./img/bg.png');
-	background-size: 100%;
-}
 .logo span{
       letter-spacing: 5;
       font-family: Karla;
@@ -41,6 +36,7 @@ input{
 	letter-spacing: 2px;
 	font-weight: bold;
 }
+
 .container{
 
 	height:500px;
