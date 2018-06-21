@@ -12,7 +12,7 @@
       height:400px;
       width:70%;
       text-align:center;
-      background: url('./img/bg.png');
+      background: url('img/bg.png');
       background-position: center;
       border-bottom: 20px solid #464A78;
       margin:auto;
@@ -47,7 +47,7 @@
       padding-top:5%;
     }
     .banner{
-      background: url('./img/bg.png');
+      background: url('img/bg.png');
       background-size: 100%;
       height: 700px;
     }
@@ -75,7 +75,7 @@
       margin:auto;
     }
     .logo span{
-      letter-spacing: 5;
+      letter-spacing: 5px;
       font-family: Karla;
       font-size: 2.5em;
       color:#464A78;
@@ -221,6 +221,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="form-steps.css">
 </head>
 <body>
     <div class="banner">
@@ -230,15 +231,15 @@
           </div>
         </nav>
       <div class="container">
-        <img src="./img/top-right.png" alt="">
+        <img src="img/top-right.png" alt="">
         <h2>ETHER FOR THE PEOPLE <br>BY THE PEOPLE</h2>
         <p>MsgCrypto allows your followers to donate crypto alongside a msg of love</p>
-        <button>TRY IT NOW</button>
+        <button id="trynow">TRY IT NOW</button>
       </div>
       
     </div>
     <div class="working">
-      <div class="row">
+      <div class="row"  style="margin-right: 0; margin-left: 0">
         <div class="col-md-3 col-xs-12 card">
           <h2>Sign Up & Create a Unique URL</h2>
          <i class="fas fa-address-book"></i>
@@ -256,134 +257,76 @@
         </div>
       </div>
     </div>
-    <div class="container2">
-        <div class="arrows">
-          <div class="arrow step1 activated">
-            <span>1. Sign the Message</span>
-          </div>
-          <div class="arrow step2">
-            <span>2. Start Chat with our Bot</span>
-          </div>
-          <div class="arrow step3">
-            <span>3. Send the OTP</span>
-          </div>
-        </div>
+
+
+    <div id="multiformbox">
+
+      <!-- multistep form -->
+      <div id="msform">
+        <!-- progressbar -->
+        <ul id="progressbar">
+          <li class="active">Sign The Message</li>
+          <li>MsgCrypto Bot</li>
+          <li>Enter OTP</li>
+        </ul>
+        <!-- fieldsets -->
+        <fieldset>
+          <h2 class="fs-title">Sign The Message</h2>
+          <h3 class="fs-subtitle">This is step 1</h3>
+          <input type="button" name="next" class="next action-button" id="get" value="Sign With Metamask"/>
+        </fieldset>
+        <fieldset>
+          <h2 class="fs-title">MsgCrypto Bot</h2>
+          <h3 class="fs-subtitle">Start Conversation with Our Telegram bot</h3>
+          <h3 class="fs-subtitle"><a href="http://telegram.me/HP_BoyBot" target="_blank" style="text-decoration: none; font-size: 1.5em;">@HP_BoyBot</a></h3>
+          <input type="button" name="next" class="next action-button" id="next" value="NEXT" />
+        </fieldset>
+        <fieldset>
+          <h2 class="fs-title">Enter OTP</h2>
+          <h3 class="fs-subtitle">Check Your Telegram to Get the OTP</h3>
+          <input type="text" name="otp" id="otp" placeholder="One-Time Password">
+          <label for="address" style="font-size: 1.2em">Ethereum Address</label>
+          <input type="text" name="address"  readonly id="address">
+          <input type="submit" name="submit" class="submit action-button" value="Submit" />
+        </fieldset>
       </div>
-  <div class="container-box">
-    <div class="success" style="display: none;">
-    <form action="/register" name="reg-form" method="post">
+      <pre class="challenge" style="display: none;"></pre>
+      <pre class="signature" style="display: none;"></pre>
 
-      Check your telegram <br>
-      Enter the OTP: <input type="text" name="otp" id="otp"> <br>
-      Ethereum Address: <input type="text" name="address"  readonly id="address"> <br>
-      <input class ="sub"type="submit" value="Finish">
-    </form>
     </div>
-  
-    <h1 class="fail" style="display: none;">Authentication Failed</h1>
-    <p id="step1">
-      SIGN THE MESSAGE IN METAMASK <br>
-      <i class="fas fa-user-plus"></i>
-    </p>
-    <button class="get">SIGN UP</button>
-    <p class="convo" style="display: none;">Start Conversation with Our Telegram bot <br>
-    <a href="http://telegram.me/HP_BoyBot" target="_blank">@HP_BoyBot</a>
-    </p>
-    <button class="verify" style="display: none;">ENTER OTP</button>
 
-    <pre class="challenge" style="display: none;"></pre>
-    <pre class="signature" style="display: none;"></pre>
-  </div>
-  <footer>
-    <div class="row upper">
+
+
+
+    <footer>
+    <div class="row upper" style="margin-right: 0; margin-left: 0">
       <div class="col-md-6 col-xs-12">
-        Powered by : Inchained <img src="./img/inchained_logo.png" class="in_logo" alt="inchained">
+        Powered by : Inchained <img src="../img/inchained_logo.png" class="in_logo" alt="inchained">
       </div>
       <div class="col-md-6 col-xs-12">
         <u>Development Team</u> <br>
         Arnav Vohra &nbsp; &nbsp; &nbsp; Akhil Bharti &nbsp; &nbsp; &nbsp; Arvind Kalra
       </div>
     </div>
-    <div class="row">
+    <div class="row"  style="margin-right: 0; margin-left: 0">
       <div class="col-xs-12">&copy2018 MSGCrypto .All contents are copyright of their authors.</div>
     </div>
   </footer>
-  
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous">
-  </script>
-
-<script type="text/javascript">
-let challenge = null;
-let signature = null;
-  if (web3) {
-    console.log("web3");
-  } else {
-    alert("No web3 detected. Please install metamask");
-  }
-
-  $('.get').on('click', function () {
-    $('.challenge').empty();
-    $.get('/auth/' + web3.eth.accounts[0], (res) => {
-      challenge = res
-
-      console.log(res)
-
-      res.forEach(line => {
-        $('.challenge').append(line.name);
-        $('.challenge').append('<br>');
-        $('.challenge').append(line.value);
-        $('.challenge').append('<br>');
-        $('.challenge').append('Initiated Sign Up process.');
-      })
 
 
-      const from = web3.eth.accounts[0];
-
-      const params = [challenge, from];
-      const method = 'eth_signTypedData';
-
-      web3.currentProvider.sendAsync({
-        method,
-        params,
-        from
-      }, async (err, result) => {
-        signature = result.result;
-        if (err) {
-          return console.error(err);
-        }
-        if (result.error) {
-          return console.error(result.error);
-        }
-        $('.signature').text(signature);
-        $('.get').hide();
-        $('#step1').hide();
-        $('.convo').show();
-        $('.verify').show();
-        $('.step2').addClass('activated')
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="form-actions.js">
+    </script>
+    <script>
+      $('#trynow').click(function () {
+          $('html, body').animate({
+              scrollTop: $('#multiformbox').offset().top
+          }, 900);
       });
-    });
-  });
-
-  $('.verify').on('click', function() {
-    $.get('/auth/' + challenge[1].value + '/' + signature, (res) => {
-      if (res.auth === web3.eth.accounts[0]) {
-        $('#address').val(res.auth);
-        $('.success').show();
-        $('.convo').hide();
-        $('.step3').addClass('activated')
-        $('.challenge').hide();
-        $('.signature').hide();
-        $('.get').hide();
-        $('.verify').hide();
-      } else {
-        $('.fail').show();
-      }
-    });
-  });
-
-
-</script>
+    </script>
 
 </body>
 </html>

@@ -2,14 +2,14 @@
   width: 304px;
   height: 89px;
   background-size: 100%;
-  background-image: url('images/1_pay_mm_off.png');
+  background-image: url('../images/1_pay_mm_off.png');
   cursor: pointer;
 }
 .tip-button:hover {
-  background-image: url('images/1_pay_mm_over.png');
+  background-image: url('../images/1_pay_mm_over.png');
 }
 .tip-button:active {
-  background-image: url('images/1_pay_mm_off.png');
+  background-image: url('../images/1_pay_mm_off.png');
 }
 #comment{
 	height:100px;
@@ -41,7 +41,7 @@ input{
 
 	height:500px;
 	width:300px;
-	background: url('./img/abs.png');
+	background: url('../img/abs.png');
 	border-radius: 10px;
 	border: 4px solid #535DF1;
 	margin:auto;

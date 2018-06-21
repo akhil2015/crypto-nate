@@ -23,7 +23,7 @@ app.use(
     })
 ); // for parsing application/x-www-form-urlencoded
 
-app.use('/', express.static('.'));
+app.use('/', express.static('public_static'));
 
 app.use(function (req, res, next) {
    console.log(req.url);
@@ -103,6 +103,18 @@ app.get('/auth/:MetaMessage/:MetaSignature', metaAuth, (req, res) => {
     }
 });
 
+app.post('/checkotp', (req, res) => {
+    let otp = req.body.otp;
+    let idx = otpArray.findIndex(function (ele) {
+        return ele.otp == otp;
+    });
+    if(idx >= 0){
+        res.send(true);
+    }else{
+        res.send(false);
+    }
+});
+
 function generateOTP(){
     let number;
     while(true){
@@ -148,7 +160,7 @@ app.post('/message-received', (req, res) => {
     }
 });
 
-const PORT = process.env.PORT;
+const PORT = 8080;
 app.listen(PORT, () => {
     mongo.connect(function () {
         console.log('Listening on port = ', PORT);
