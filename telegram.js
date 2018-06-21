@@ -29,6 +29,10 @@ module.exports = {
         return msjObj.text === "/start";
     },
 
+    checkForHelpMessage : function (msjObj) {
+        return msjObj.text === '/help';
+    }
+
 
 
 };

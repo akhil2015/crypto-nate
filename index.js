@@ -52,7 +52,7 @@ app.post('/register',metaAuth,function (req,res){
             mongo.registerWithNameAndAddress(name, address, id, function () {
                 let url = randomURL + "/" + address;
                 telegram.sendMessage(id, "Congrats! Registered with Ethereum Address = " +
-                    address + "\n You may give this url \n (" + url + ") \n to your followers" +
+                    address + "\nYou may give this url \n" + url + "\n to your followers" +
                     " to get Cryptos and a Message of Love.");
                 res.render('success.pug', {url : url});
             });
@@ -151,7 +151,10 @@ app.post('/message-received', (req, res) => {
                 console.log("Sent");
                 res.sendStatus(200);
             })
-        }else{
+        }else if(telegram.checkForHelpMessage(req.body.message)){
+            let helpMessage = "/help Message is Yet to Be Decided";
+            telegram.sendMessage(id, helpMessage);
+        } else{
             console.log("Good Old Message", req.body.message);
             let id = req.body.message.from.id;
             let msg = req.body.message.text;
