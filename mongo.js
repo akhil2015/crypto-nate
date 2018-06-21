@@ -42,9 +42,9 @@ module.exports = {
         });
     },
 
-    storeMessageinDb : function (address, msg, callback) {
+    storeMessageinDb : function (address,from, msg, callback) {
         let self = this;
-        self.obj.collection('messages').insertOne({address:address,message:msg}, function(err, r) {
+        self.obj.collection('messages').insertOne({address:address,from:from,message:msg}, function(err, r) {
             assert.equal(null, err);
             assert.equal(1, r.insertedCount);
             if(callback) callback();

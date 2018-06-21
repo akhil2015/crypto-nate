@@ -20,10 +20,12 @@ tipButton.addEventListener('click', function() {
     renderMessage('Thanks for the generosity!! We will forward your message')
     
     var msg = document.getElementById('comment').value;
+    var from = document.getElementById('donor').value;
+    
     console.log(MY_ADDRESS);
     console.log(msg); //send message data to server
 
-    url =('/msg?address='+MY_ADDRESS+'&msg='+msg);
+    url =('/msg?address='+MY_ADDRESS+'&from='+from+'&msg='+msg);
     window.location.href = url;
   });
 })

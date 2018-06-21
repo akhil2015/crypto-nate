@@ -9,8 +9,10 @@ html
 			p Sending ETH to: 
 				h4(id="address") #{address}
 			label Sending:
-			input(typ="number" id="amount" value="0.1") 
+			input(type="number" id="amount" value="0.1") 
 			span(class="currency") ETH
+			label From: 
+				input(type="text" id="donor" value ="anonymous")
 			p(class="comment-label") Leave a message:
 			textarea(id="comment")
 			div(class="tip-button")
