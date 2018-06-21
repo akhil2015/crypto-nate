@@ -9,14 +9,17 @@
 
     }
     .container-box{
-      height:500px;
-      width:300px;
-      background: black;
-      border-radius: 5px;
-      border: 4px double #ef6c00;
+      height:400px;
+      width:70%;
+      text-align:center;
+      background: url('./img/bg.png');
+      background-position: center;
+      border-bottom: 20px solid #464A78;
       margin:auto;
-      color:white;
+      color:#2e2e2e;
+      font-weight:bold;
       text-align: center;
+      font-family: Gilroy;
     }
     #otp{
       color: black;
@@ -30,11 +33,12 @@
     .success input{
       margin:5px;
     }
-    button,.sub{
+    button , .sub{
       height:80px;
       width:250px;
       color:white;
-      background: #ef6c00;
+      font-weight:bold;
+      background: #535DF1;
       font-size: 2em;
     }
     .container{
@@ -113,6 +117,11 @@
     .card:hover{
       box-shadow: 7px 0 7px 0 #CCC;
     }
+    #step1 i{
+        font-size: 5em;
+        color:#535DF1;
+        margin:20px 0;
+    }
     footer{
       background: #535DF1;
       color:white;
@@ -123,6 +132,81 @@
     footer .col-xs-12{
       padding: 0;
     }
+    /*for the timeline*/
+          /* Base style */
+
+      .container2 {
+        width: 100%;
+        margin: 30px auto;
+      }
+
+      /* Timeline styles */
+      .arrows {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        
+        width: 80%;
+        margin: 0 auto;
+        padding: 6px 0;
+        position: relative;
+        
+        border: 1px dashed yellow;
+      }
+
+      .arrow {
+        width: 33%;
+        margin: 0;
+        padding: 25px 10px;
+        text-align: center;
+        position: relative;
+      }
+
+      .arrow:after {
+        border-top: 34px solid transparent;
+        border-bottom: 34px solid transparent;
+        content: "";
+        height: 0;
+        position: absolute;
+        right: -17px;
+        top: 0;
+        width: 0;
+        z-index: 2;
+      }
+
+      .arrow:last-child:after {
+        border: none;
+        right: 0;
+      }
+
+
+      /* Colour each section. */
+      .step1 {background-color: #999;}
+
+      .step2 {background-color: #999;}
+
+      .step3 {background-color: #999;}
+
+
+      /* Colour the wedge (arrow) */
+      .arrow.step1:after { border-left: 17px solid #464A78; }
+
+      .arrow.step2:after { border-left: 17px solid #999; }
+
+
+      /* Typography */
+      .arrow span {
+        font-size:1.2em;
+        color: #ffffff;
+        position: relative;
+      }
+      .activated{
+        background-color:#464A78;
+      }
+      .arrow.activated:after{
+        border-left: 17px solid #464A78;
+      }
   </style>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <!-- Latest compiled and minified CSS -->
@@ -138,8 +222,7 @@
       <div class="container">
         <img src="./img/top-right.png" alt="">
         <h2>ETHER FOR THE PEOPLE <br>BY THE PEOPLE</h2>
-        <i class="fas fa-address-book"></i>
-        <p>MsgCrypto allows your followers to donate crypto alongside a msg of love♥</p>
+        <p>MsgCrypto allows your followers to donate crypto alongside a msg of love</p>
         <button>TRY IT NOW</button>
       </div>
       
@@ -163,19 +246,35 @@
         </div>
       </div>
     </div>
+    <div class="container2">
+        <div class="arrows">
+          <div class="arrow step1 activated">
+            <span>1. Sign the Message</span>
+          </div>
+          <div class="arrow step2">
+            <span>2. Start Chat with our Bot</span>
+          </div>
+          <div class="arrow step3">
+            <span>3. Send the OTP</span>
+          </div>
+        </div>
+      </div>
   <div class="container-box">
     <div class="success" style="display: none;">
     <form action="/register" name="reg-form" method="post">
-      STEP 2: ENTER YOUR DETAILS <br>
-      OTP: <input type="number" name="otp" readonly id="otp">
-      <input class ="sub"type="submit" value="Register">
+      Check your telegram <br>
+      Your OTP: <input type="number" name="otp" readonly id="otp"> <br>
+      <input class ="sub" type="submit" value="Finish">
     </form>
     </div>
   
     <h1 class="fail" style="display: none;">Authentication Failed</h1>
-    <p id="step1">STEP 1: SIGN THE MESSAGE IN METAMASK</p>
+    <p id="step1">
+      SIGN THE MESSAGE IN METAMASK <br>
+      <i class="fas fa-user-plus"></i>
+    </p>
     <button class="get">SIGN UP</button>
-
+    <p class="convo" style="display: none;">Start Conversation with Our Telegrambot <br><a href="">@msgcrypto</a></p>
     <button class="verify" style="display: none;">NEXT</button>
 
     <pre class="challenge" style="display: none;"></pre>
@@ -236,7 +335,9 @@ let signature = null;
         $('.signature').text(signature);
         $('.get').hide();
         $('#step1').hide();
+        $('.convo').show();
         $('.verify').show();
+        $('.step2').addClass('activated')
       });
     });
   });
@@ -246,6 +347,8 @@ let signature = null;
       if (res.auth === web3.eth.accounts[0]) {
         $('#otp').val(res.otp);
         $('.success').show();
+        $('.convo').hide();
+        $('.step3').addClass('activated')
         $('.challenge').hide();
         $('.signature').hide();
         $('.get').hide();
