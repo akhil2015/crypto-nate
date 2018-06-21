@@ -56,7 +56,7 @@ app.post('/register',metaAuth,function (req,res){
             });
         }
     }else{
-        res.sendStatus(404);
+        res.send(false);
     }
 });
 

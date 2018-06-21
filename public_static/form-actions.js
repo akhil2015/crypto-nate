@@ -137,16 +137,14 @@ $(".submit").click(function() {
     if (otp.length !== 6 && /^\d+$/.test(otp)) {
         alert("Please Enter a valid OTP");
         return;
+    }else{
+        $.post('/register', {
+            otp: otp,
+            address: address
+        }).done(function (data) {
+            if(data === false){
+                alert("OTP Incorrect!! Please Enter a valid OTP");
+            }
+        });
     }
-    $.post('checkotp', {otp : otp}).done(function (data) {
-        if (data) {
-            $.post('/register', {
-                otp: otp,
-                address: address
-            })
-        } else {
-            alert("OTP Incorrect!! Please Enter the correct OTP")
-            return;
-        }
-    });
 });
