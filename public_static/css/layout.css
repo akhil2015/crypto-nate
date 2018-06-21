@@ -1,0 +1,223 @@
+body{
+  background: #222;
+  font-family: Karla;
+  margin:0;
+  padding: 0;
+
+}
+.container-box{
+  height:400px;
+  width:70%;
+  text-align:center;
+  background: url('img/bg.png');
+  background-position: center;
+  border-bottom: 20px solid #464A78;
+  margin:auto;
+  color:#2e2e2e;
+  font-weight:bold;
+  text-align: center;
+  font-family: Gilroy;
+}
+#otp, #address{
+  color: black!important;
+}
+.success{
+  padding-top: 50px;
+}
+.verify{
+  margin-top: 50px;
+}
+.success input{
+  margin:5px;
+}
+button , .sub{
+  height:80px;
+  width:250px;
+  color:white;
+  font-weight:bold;
+  background: #535DF1;
+  font-size: 2em;
+}
+.container{
+  width:70%;
+  margin:auto;
+  padding-top:5%;
+}
+.banner{
+  background: url('img/bg.png');
+  background-size: 100%;
+  height: 700px;
+}
+.banner h2{
+  padding-top: 30px;
+  margin:0;
+  color:#2E2E2E;
+  font-size: 2em;
+  font-family: Gilroy;
+}
+.banner p{
+  color:#545454;
+  font-size: 1.5em;
+  width:50%;
+  display: inline-block;
+}
+.banner img{
+  float:right;
+  width:40%;
+}
+nav{
+  padding-top: 20px;
+  width:70%;
+  margin:auto;
+}
+.logo span{
+  letter-spacing: 5px;
+  font-family: Karla;
+  font-size: 2.5em;
+  color:#464A78;
+}
+.banner button{
+  background: #535DF1;
+  height:50px;
+  border-radius:8px; 
+  text-align:center;
+  color:#FFF;
+  font-size: 1.3em;
+  font-weight: bold; 
+}
+.working .row div{
+  height: 400px;
+  border:1px solid #EEE;
+}
+.working{
+text-align: center;
+}
+.card h2{
+  font-family: Karla;
+}
+.card{
+  margin:4%;
+  margin-top:10px;
+  box-shadow: 0px 0 7px 0 #CCC;
+  font-family: Gilroy;
+  transition: 0.6s ease;
+}
+.card p{
+  font-size: 1.3em;
+}
+.card i{
+  font-size:5em;
+  padding:10px;
+  color:#464A78;
+}
+.card:hover{
+  box-shadow: 7px 0 7px 0 #CCC;
+}
+#step1 i{
+  font-size: 5em;
+  color:#535DF1;
+  margin:20px 0;
+}
+footer{
+  background: #535DF1;
+  color:white;
+  font-size: 1.2em;
+  text-align: center;
+  font-weight: bold;
+}
+footer .col-xs-12{
+  padding: 0;
+}
+
+#address{
+  width:350px;
+  background:#DDD;
+}
+.in_logo{
+  height:40px;
+}
+.upper{
+  background-color: #464A78;
+}
+
+
+
+
+
+
+/*for the timeline*/
+    /* Base style */
+
+.container2 {
+  width: 100%;
+  margin: 30px auto;
+}
+
+
+/* Timeline styles */
+.arrows {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  
+  width: 80%;
+  margin: 0 auto;
+  padding: 6px 0;
+  position: relative;
+  
+  border: 1px dashed yellow;
+}
+
+.arrow {
+  width: 33%;
+  margin: 0;
+  padding: 25px 10px;
+  text-align: center;
+  position: relative;
+}
+
+.arrow:after {
+  border-top: 34px solid transparent;
+  border-bottom: 34px solid transparent;
+  content: "";
+  height: 0;
+  position: absolute;
+  right: -17px;
+  top: 0;
+  width: 0;
+  z-index: 2;
+}
+
+.arrow:last-child:after {
+  border: none;
+  right: 0;
+}
+
+
+/* Colour each section. */
+.step1 {background-color: #999;}
+
+.step2 {background-color: #999;}
+
+.step3 {background-color: #999;}
+
+
+/* Colour the wedge (arrow) */
+.arrow.step1:after { border-left: 17px solid #464A78; }
+
+.arrow.step2:after { border-left: 17px solid #999; }
+
+
+/* Typography */
+.arrow span {
+  font-size:1.2em;
+  color: #ffffff;
+  position: relative;
+}
+.activated{
+  background-color:#464A78;
+}
+.arrow.activated:after{
+  border-left: 17px solid #464A78;
+}
