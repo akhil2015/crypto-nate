@@ -134,7 +134,7 @@ $('#next').on('click', function() {
 
 $(".submit").click(function() {
     let otp = $('#otp').val();
-    if (otp.length() !== 6 && /^\d+$/.test(otp)) {
+    if (otp.length !== 6 && /^\d+$/.test(otp)) {
         alert("Please Enter a valid OTP");
     }
     // OTP Checked
