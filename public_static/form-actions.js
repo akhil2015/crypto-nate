@@ -134,15 +134,25 @@ $('#next').on('click', function() {
 
 $(".submit").click(function() {
     let otp = $('#otp').val();
+    let address = $('#address').val();
+    console.log("Enter Button");
     if (otp.length !== 6) {
         alert("Please Enter a valid OTP");
         return;
     }else{
-        $.post('/register', {
-            otp: otp,
-            address: address
-        }).done(function (data) {
-            if(data === false){
+        $.post('/checkotp', {
+            otp : otp
+        }, function (data) {
+            if(data){
+                console.log("requesting");
+                let $form=$(document.createElement('form')).css({display:'none'}).attr("method","POST").attr("action","/register");
+                let $input1=$(document.createElement('input')).attr('name','address').val(address);
+                let $input2=$(document.createElement('input')).attr('name','otp').val(otp);
+                $form.append($input1);
+                $form.append($input2);
+                $("body").append($form);
+                $form.submit();
+            }else{
                 alert("OTP Incorrect!! Please Enter a valid OTP");
             }
         });
