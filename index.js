@@ -160,7 +160,7 @@ app.post('/message-received', (req, res) => {
     }
 });
 
-const PORT = 8080;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
     mongo.connect(function () {
         console.log('Listening on port = ', PORT);
