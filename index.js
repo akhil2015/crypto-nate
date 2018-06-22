@@ -64,12 +64,12 @@ app.post('/register',metaAuth,function (req,res){
 
 //TODO Change this to POST
 app.get('/msg', (req,res) => {
-     var address = req.param('address');
-     var msg = req.param('msg');
-     var from = req.param('from');
-     mongo.getIdFromAddress(address, function (id) {
+    var address = req.query.address;
+    var msg = req.query.msg;
+    var from = req.query.from;
+    mongo.getIdFromAddress(address, function (id) {
         if(id){
-            telegram.sendMessage(id,from, msg, function () {
+            telegram.sendMessage(id, "From : " + from + "\n" + msg, function () {
                 mongo.storeMessageinDb(address,from, msg, function () {
                     res.sendStatus(200);
                 })
