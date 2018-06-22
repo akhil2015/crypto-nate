@@ -1,7 +1,7 @@
 const express = require('express');
 const MetaAuth = require('meta-auth');
-const pug = require('pug');
 const randomURL = 'https://msgcrypto.herokuapp.com';
+const path = require('path');
 
 const mongo = require('./mongo.js');
 const telegram = require('./telegram.js');
@@ -22,6 +22,9 @@ app.use(
         extended: true
     })
 ); // for parsing application/x-www-form-urlencoded
+
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'public_static/views'));
 
 app.use('/', express.static('public_static'));
 
