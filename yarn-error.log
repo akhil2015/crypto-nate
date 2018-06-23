@@ -1,0 +1,64 @@
+Arguments: 
+  /usr/local/bin/node /home/arvind/.yarn/bin/yarn.js install
+
+PATH: 
+  /home/arvind/.yarn/bin:/home/arvind/.config/yarn/global/node_modules/.bin:/home/arvind/bin:/home/arvind/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin
+
+Yarn version: 
+  1.7.0
+
+Node version: 
+  8.9.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  SyntaxError: /home/arvind/Documents/crypto-nate/package.json: Unexpected token } in JSON at position 772
+      at JSON.parse (<anonymous>)
+      at /home/arvind/.yarn/lib/cli.js:1130:59
+      at Generator.next (<anonymous>)
+      at step (/home/arvind/.yarn/lib/cli.js:98:30)
+      at /home/arvind/.yarn/lib/cli.js:109:13
+      at <anonymous>
+
+npm manifest: 
+  {
+    "name": "crypto-nate",
+    "version": "1.0.0",
+    "description": "Sends crypto donations",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "nodemon index.js"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/akhil2015/crypto-nate.git"
+    },
+    "keywords": [
+      "ether",
+      "donations"
+    ],
+    "author": "Akhil Bharti",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/akhil2015/crypto-nate/issues"
+    },
+    "homepage": "https://github.com/akhil2015/crypto-nate#readme",
+    "dependencies": {
+      "axios": "^0.18.0",
+      "body-parser": "^1.18.3",
+      "express": "^4.16.3",
+      "meta-auth": "^1.1.2",
+      "mongodb": "^3.0.10",
+      "nodemon": "^1.17.5",
+      "pug": "^2.0.3",
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

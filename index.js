@@ -8,7 +8,6 @@ const telegram = require('./telegram.js');
 
 const app = express();
 const metaAuth = new MetaAuth();
-const url = require('url');
 
 const bodyParser = require("body-parser");
 
@@ -65,11 +64,10 @@ app.post('/register',metaAuth,function (req,res){
     }
 });
 
-//TODO Change this to POST
-app.get('/msg', (req,res) => {
-    var address = req.query.address;
-    var msg = req.query.msg;
-    var from = req.query.from;
+app.post('/msg', (req,res) => {
+    var address = req.body.addr; // This is the key which points to receivers address
+    var msg = req.body.messa; // This is the key which points to the message to be sent
+    var from = req.body.fr; // This is the key which points to the Name of the sender
     mongo.getIdFromAddress(address, function (id) {
         if(id){
             telegram.sendMessage(id, "From : " + from + "\n" + msg, function () {

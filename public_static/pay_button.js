@@ -25,10 +25,23 @@ tipButton.addEventListener('click', function() {
     console.log(MY_ADDRESS);
     console.log(msg); //send message data to server
 
-    url =('/msg?address='+MY_ADDRESS+'&from='+from+'&msg='+msg);
-    window.location.href = url;
+
+    // Creating Post Request for sending message
+      let $form=$(document.createElement('form')).css({display:'none'}).attr("method","POST").attr("action","/msg");
+      let $input1=$(document.createElement('input')).attr('name','addr').val(MY_ADDRESS);
+      let $input2=$(document.createElement('input')).attr('name','fr').val(from);
+      let $input3=$(document.createElement('input')).attr('name','messa').val(msg);
+      $form.append($input1);
+      $form.append($input2);
+      $form.append($input3);
+      $("body").append($form);
+      $form.submit();
+
+
+    // url =('/msg?address='+MY_ADDRESS+'&from='+from+'&msg='+msg);
+    // window.location.href = url;
   });
-})
+});
 function renderMessage (message) {
   var messageEl = document.querySelector('.message')
   messageEl.innerHTML = message
