@@ -1,7 +1,8 @@
 html
 	head
 	title CRYPTO-NATE
-	link(href="./css/style.css" rel="stylesheet" type="text/css")
+	link(href="css/style.css" rel="stylesheet" type="text/css")
+	link(href="css/loader.css" rel="stylesheet" type="text/css")
 	body
 		div(class = "container")
 			div(class="logo")
@@ -18,5 +19,11 @@ html
 			textarea(id="comment")
 			div(class="tip-button")
 			div(class="message")
+			div(class="loader-custom" id="loader")
+				div(class="loader-background")
+				div(class="container-other")
+					div(class="dot dot-1")
+					div(class="dot dot-2")
+					div(class="dot dot-3")
 		script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
 		script(src="pay_button.js")

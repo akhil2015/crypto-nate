@@ -18,25 +18,24 @@ tipButton.addEventListener('click', function() {
     // or if you want to guarantee it was received, you can poll
     // for that transaction to be mined first.
     renderMessage('Thanks for the generosity!! We will forward your message')
-    
+      let $loader = $('#loader');
+      $loader.addClass('is-active');
     var msg = document.getElementById('comment').value;
     var from = document.getElementById('donor').value;
     
-    console.log(MY_ADDRESS);
-    console.log(msg); //send message data to server
-
-
     // Creating Post Request for sending message
-      let $form=$(document.createElement('form')).css({display:'none'}).attr("method","POST").attr("action","/msg");
-      let $input1=$(document.createElement('input')).attr('name','addr').val(MY_ADDRESS);
-      let $input2=$(document.createElement('input')).attr('name','fr').val(from);
-      let $input3=$(document.createElement('input')).attr('name','messa').val(msg);
-      $form.append($input1);
-      $form.append($input2);
-      $form.append($input3);
-      $("body").append($form);
-      $form.submit();
-
+      $.post('/msg', {
+          addr : MY_ADDRESS,
+          fr : from,
+          messa : msg
+      }, function (response, status) {
+          $loader.removeClass('is-active');
+          if(status === 'success'){
+            alert("Message Sent");
+          }else{
+            alert("An Error Occured Could Not Send the Message");
+          }
+      });
 
     // url =('/msg?address='+MY_ADDRESS+'&from='+from+'&msg='+msg);
     // window.location.href = url;
