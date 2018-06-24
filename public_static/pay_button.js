@@ -32,6 +32,7 @@ tipButton.addEventListener('click', function() {
           $loader.removeClass('is-active');
           if(status === 'success'){
             alert("Message Sent");
+            window.location.href = '/';
           }else{
             alert("An Error Occured Could Not Send the Message");
           }

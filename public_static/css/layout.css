@@ -9,7 +9,7 @@ body{
   height:400px;
   width:70%;
   text-align:center;
-  background: url('img/bg.png');
+  background: url("../img/bg.png");
   background-position: center;
   border-bottom: 20px solid #464A78;
   margin:auto;
@@ -44,7 +44,7 @@ button , .sub{
   padding-top:5%;
 }
 .banner{
-  background: url('img/bg.png');
+  background: url('../img/bg.png');
   background-size: 100%;
   height: 700px;
 }
