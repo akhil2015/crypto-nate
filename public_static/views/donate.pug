@@ -7,23 +7,29 @@ html
 		div(class = "container")
 			div(class="logo")
 				span MSGCRYPTO
-			p Sending ETH to: 
+			p Sending ETH to:
 				h4(id="address") #{address}
-			label Sending:
-			input(type="number" id="amount" value="0.1") 
-			span(class="currency") ETH
-			br
-			label From: 
-				input(type="text" id="donor" placeholder ="anonymous")
-			p(class="comment-label") Leave a message:
-			textarea(id="comment")
-			div(class="tip-button")
-			div(class="message")
-			div(class="loader-custom" id="loader")
-				div(class="loader-background")
-				div(class="container-other")
-					div(class="dot dot-1")
-					div(class="dot dot-2")
-					div(class="dot dot-3")
+
+			div(class="request_box")
+				div(class="input_box")
+					label Sending:
+					input(type="text" id="amount" value="0.1")
+					span(class="currency") ETH
+
+				div(class="input_box")
+					label From:
+					input(type="text" id="donor" placeholder="anonymous")
+
+				div(class="comment-label") Leave a message:
+				textarea(id="comment")
+				div(class="tip-button")
+				div(class="message")
+				div(class="loader-custom" id="loader")
+					div(class="loader-background")
+					div(class="container-other")
+						div(class="dot dot-1")
+						div(class="dot dot-2")
+						div(class="dot dot-3")
 		script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
 		script(src="pay_button.js")
+		script(src="only_float.js")

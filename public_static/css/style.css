@@ -18,8 +18,8 @@
 	height:100px;
 	width:290px;
 }
-#amount{
-	margin-top: 80px;
+.input_box{
+	margin: 15px;
 }
 .logo span{
       letter-spacing: 5;
@@ -61,4 +61,7 @@ input{
 }
 .link-content{
 	text-align: center;
+}
+.request_box{
+	margin-top: 20%;
 }

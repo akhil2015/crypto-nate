@@ -1,4 +1,4 @@
-var MY_ADDRESS = document.getElementById('address').innerHTML
+var MY_ADDRESS = document.getElementById('address').innerHTML;
 // alert(MY_ADDRESS) //update this to influencer's address
 var tipButton = document.querySelector('.tip-button')
 tipButton.addEventListener('click', function() {
@@ -13,16 +13,21 @@ tipButton.addEventListener('click', function() {
     from: user_address,
     value: web3.toWei(amount, 'ether'),
   }, function (err, transactionHash) {
-    if (err) return renderMessage('There was a problem!: ' + err.message)
+    if (err) return renderMessage('There was a problem!: ' + err.message);
     // If you get a transactionHash, you can assume it was sent,
     // or if you want to guarantee it was received, you can poll
     // for that transaction to be mined first.
-    renderMessage('Thanks for the generosity!! We will forward your message')
-      let $loader = $('#loader');
-      $loader.addClass('is-active');
+    renderMessage('Thanks for the generosity!! We will forward your message');
+    let $loader = $('#loader');
+    $loader.addClass('is-active');
     var msg = document.getElementById('comment').value;
     var from = document.getElementById('donor').value;
-    
+    if(from.length === 0){
+        from = "Anonymous";
+    }
+    if(msg.length === 0){
+        msg = "Sorry! No Message was Sent!!"
+    }
     // Creating Post Request for sending message
       $.post('/msg', {
           addr : MY_ADDRESS,
