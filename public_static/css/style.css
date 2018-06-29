@@ -12,7 +12,7 @@
   background-image: url('/img/1_pay_mm_off.png');
 }
 #donor{
-	width:115px;
+	width:75%;
 }
 #comment{
 	height:100px;
@@ -28,7 +28,7 @@
       color:#464A78;
 }
 input{
-	width:80px;
+	width:50%;
 	border:2px solid #CCC;
 	padding:2px;
 	text-align: center;

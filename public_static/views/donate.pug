@@ -18,10 +18,10 @@ html
 
 				div(class="input_box")
 					label From:
-					input(type="text" id="donor" placeholder="anonymous")
+					input(type="text" id="donor" maxlength="15" placeholder="anonymous (Max Length : 15)")
 
 				div(class="comment-label") Leave a message:
-				textarea(id="comment")
+				textarea(id="comment" placeholder="Your Message Goes Here... \n(Max Length : 100)" maxlength="100")
 				div(class="tip-button")
 				div(class="message")
 				div(class="loader-custom" id="loader")
