@@ -1,5 +1,14 @@
-link(href="style.css" rel="stylesheet" type="text/css")
-div(class="link-content")
-    h1 YOU are successfully registered
-    h3 copy this link:
-    input(class="link" type="text" value=url readonly)
+html
+    head
+    title CRYPTO-NATE
+    link(href="css/style.css" rel="stylesheet" type="text/css")
+    body
+        div(class="link-content")
+            h1 YOU are successfully registered
+            h3 copy this link:
+            input(class="link" type="text" id="url" value=url readonly)
+            button(id="copy") CopyURL
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+        script(src="copyText.js")
+
+
