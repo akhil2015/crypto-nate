@@ -108,13 +108,13 @@
             let x = web3;
             let s = document.createElement("script");
             s.type = 'text/javascript';
-            s.src = 'form-actions.js';
+            s.src = 'javascript/form-actions.js';
             $('body').append(s);
         }catch (e) {
-            alert("No web3 detected. Please install Metamask");
+            alert("No web3 detected. Please install Metamask \nUse Link - https://metamask.io/");
             let s = document.createElement("script");
             s.type = 'text/javascript';
-            s.src = 'notfound.js';
+            s.src = 'javascript/notfound.js';
             $('body').append(s);
         }
     </script>
