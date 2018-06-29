@@ -1,11 +1,18 @@
+if (typeof  web3 === "undefined") {
+    alert("Metamask Not Found. \nInstall Metamask Extension From https://metamask.io/");
+}
 var MY_ADDRESS = document.getElementById('address').innerHTML;
 // alert(MY_ADDRESS) //update this to influencer's address
-var tipButton = document.querySelector('.tip-button')
+var tipButton = document.querySelector('.tip-button');
 tipButton.addEventListener('click', function() {
-  if (typeof web3 === 'undefined') {
-    return renderMessage('<div>You need to install <a href=“https://metmask.io“>MetaMask </a> to use this feature.  <a href=“https://metmask.io“>https://metamask.io</a></div>')
-  }
-
+    if (typeof  web3 === "undefined") {
+        alert("Metamask Not Found. \nInstall Metamask Extension From https://metamask.io/");
+        return;
+    }
+    if(web3.eth.accounts.length === 0){
+        alert("Metamask Not Logged In. \nPlease Log In to your Metamask Account");
+        return;
+    }
   var user_address = web3.eth.accounts[0];
   var amount = document.getElementById('amount').value;
   web3.eth.sendTransaction({
