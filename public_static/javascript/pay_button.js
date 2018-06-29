@@ -39,7 +39,8 @@ tipButton.addEventListener('click', function() {
       $.post('/msg', {
           addr : MY_ADDRESS,
           fr : from,
-          messa : msg
+          messa : msg,
+          ether : amount
       }, function (response, status) {
           $loader.removeClass('is-active');
           if(status === 'success'){

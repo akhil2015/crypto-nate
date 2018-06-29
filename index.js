@@ -68,10 +68,11 @@ app.post('/register',metaAuth,function (req,res){
 app.post('/msg', (req,res) => {
     var address = req.body.addr; // This is the key which points to receivers address
     var msg = req.body.messa; // This is the key which points to the message to be sent
-    var from = req.body.fr; // This is the key which points to the Name of the sender
+    var from = req.body.fr;// This is the key which points to the Name of the sender
+    var ether = req.body.ether;
     mongo.getIdFromAddress(address, function (id) {
         if(id){
-            telegram.sendMessage(id, "From : " + from + "\n" + msg, function () {
+            telegram.sendMessage(id, "From : " + from + "\nMessage : " + msg + "\nEthers Received : " + ether, function () {
                 mongo.storeMessageinDb(address,from, msg, function () {
                     res.sendStatus(200);
                 })
