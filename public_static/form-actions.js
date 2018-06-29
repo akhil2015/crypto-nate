@@ -12,7 +12,7 @@ $('#get').on('click', function () {
     if(web3.eth.accounts.length !== 0){
         $.get('/auth/' + web3.eth.accounts[0], (res) => {
             challenge = res;
-
+            res[0].value = "MsgCrypto";
             res.forEach(line => {
                 $('.challenge').append(line.name);
                 $('.challenge').append('<br>');
@@ -84,47 +84,41 @@ $('#get').on('click', function () {
 });
 
 $('#next').on('click', function() {
-    $.get('/auth/' + challenge[1].value + '/' + signature, (res) => {
-        if (res.auth === web3.eth.accounts[0]) {
-            $('#address').val(res.auth);
+    $('#address').val(web3.eth.accounts[0]);
 
-            animating = true;
+    animating = true;
 
-            current_fs = $(this).parent();
-            next_fs = $(this).parent().next();
+    current_fs = $(this).parent();
+    next_fs = $(this).parent().next();
 
-            //activate next step on progressbar using the index of next_fs
-            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+    //activate next step on progressbar using the index of next_fs
+    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
-            //show the next fieldset
-            next_fs.show();
-            //hide the current field set with style
-            current_fs.animate({opacity: 0}, {
-                step: function(now, mx) {
-                    //as the opacity of current_fs reduces to 0 - stored in "now"
-                    //1. scale current_fs down to 80%
-                    scale = 1 - (1 - now) * 0.2;
-                    //2. bring next_fs from the right(50%)
-                    left = (now * 50)+"%";
-                    //3. increase opacity of next_fs to 1 as it moves in
-                    opacity = 1 - now;
-                    current_fs.css({
-                        'transform': 'scale('+scale+')',
-                        'position': 'absolute'
-                    });
-                    next_fs.css({'left': left, 'opacity': opacity});
-                },
-                duration: 1000,
-                complete: function(){
-                    current_fs.hide();
-                    animating = false;
-                },
-                //this comes from the custom easing plugin
-                easing: 'easeInOutBack'
+    //show the next fieldset
+    next_fs.show();
+    //hide the current field set with style
+    current_fs.animate({opacity: 0}, {
+        step: function(now, mx) {
+            //as the opacity of current_fs reduces to 0 - stored in "now"
+            //1. scale current_fs down to 80%
+            scale = 1 - (1 - now) * 0.2;
+            //2. bring next_fs from the right(50%)
+            left = (now * 50)+"%";
+            //3. increase opacity of next_fs to 1 as it moves in
+            opacity = 1 - now;
+            current_fs.css({
+                'transform': 'scale('+scale+')',
+                'position': 'absolute'
             });
-        } else {
-            $('.fail').show();
-        }
+            next_fs.css({'left': left, 'opacity': opacity});
+        },
+        duration: 1000,
+        complete: function(){
+            current_fs.hide();
+            animating = false;
+        },
+        //this comes from the custom easing plugin
+        easing: 'easeInOutBack'
     });
 });
 

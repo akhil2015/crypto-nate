@@ -35,7 +35,7 @@ app.use(function (req, res, next) {
 app.get('/auth/:MetaAddress', metaAuth, (req, res) => {
   // Request a message from the server
   if (req.metaAuth && req.metaAuth.challenge) {
-    req.metaAuth.challenge[0].value = "MsgCrypto";
+
     res.send(req.metaAuth.challenge)
   }
 });
@@ -94,20 +94,20 @@ app.get('/:address',function(req,res){
 
 });
 
-app.get('/auth/:MetaMessage/:MetaSignature', metaAuth, (req, res) => {
-    if (req.metaAuth && req.metaAuth.recovered) {
-        // Signature matches the cache address/challenge
-        // Authentication is valid, assign JWT, etc.
-        console.log(req.metaAuth.recovered);//store this in db
-
-        res.send({
-            auth : req.metaAuth.recovered
-        });
-    } else {
-        // Sig did not match, invalid authentication
-        res.status(400).send();
-    }
-});
+// app.get('/auth/:MetaMessage/:MetaSignature', metaAuth, (req, res) => {
+//     if (req.metaAuth && req.metaAuth.recovered) {
+//         // Signature matches the cache address/challenge
+//         // Authentication is valid, assign JWT, etc.
+//         console.log(req.metaAuth.recovered);//store this in db
+//
+//         res.send({
+//             auth : req.metaAuth.recovered
+//         });
+//     } else {
+//         // Sig did not match, invalid authentication
+//         res.status(400).send();
+//     }
+// });
 
 app.post('/checkotp', (req, res) => {
     let otp = req.body.otp;
