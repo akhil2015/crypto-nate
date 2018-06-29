@@ -35,6 +35,7 @@ app.use(function (req, res, next) {
 app.get('/auth/:MetaAddress', metaAuth, (req, res) => {
   // Request a message from the server
   if (req.metaAuth && req.metaAuth.challenge) {
+    req.metaAuth.challenge[0].value = "MsgCrypto";
     res.send(req.metaAuth.challenge)
   }
 });

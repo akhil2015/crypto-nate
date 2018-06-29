@@ -13,8 +13,6 @@ $('#get').on('click', function () {
         $.get('/auth/' + web3.eth.accounts[0], (res) => {
             challenge = res;
 
-            console.log(res);
-
             res.forEach(line => {
                 $('.challenge').append(line.name);
                 $('.challenge').append('<br>');
