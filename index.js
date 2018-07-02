@@ -10,6 +10,7 @@ const app = express();
 const metaAuth = new MetaAuth();
 
 const bodyParser = require("body-parser");
+const Web3 = require('web3');
 
 let otpArray = [];
 // let id_who_have_otp_requested = [];
@@ -70,18 +71,65 @@ app.post('/msg', (req,res) => {
     var msg = req.body.messa; // This is the key which points to the message to be sent
     var from = req.body.fr;// This is the key which points to the Name of the sender
     var ether = req.body.ether;
-    mongo.getIdFromAddress(address, function (id) {
-        if(id){
-            telegram.sendMessage(id, "From : " + from + "\nMessage : " + msg + "\nEthers Received : " + ether, function () {
-                mongo.storeMessageinDb(address,from, msg, function () {
-                    res.sendStatus(200);
-                })
-            })
-        }else{
-            res.sendStatus(404);
+    let hash = req.body.hash;
+    let network = req.body.network;
+    let sent = false;
+    res.sendStatus(200);
+    checkWeatherMined(hash, network, function () {
+        if(!sent){
+            sent = true;
+            mongo.getIdFromAddress(address, function (id) {
+                if(id){
+                    telegram.sendMessage(id, "From : " + from + "\nMessage : " + msg + "\nEthers Received : " + ether, function () {
+                        mongo.storeMessageinDb(address,from, msg)
+                    })
+                }
+            });
         }
-     });
+
+    });
 });
+
+function checkWeatherMined(hash, network, callack){
+    function getNetworkLink(network) {
+        let link = null;
+        switch (network) {
+            case "1":
+                link = 'https://mainnet.infura.io/';
+                break;
+            case "2":
+                link = 'https://morden.infura.io/';
+                break;
+            case "3":
+                link = 'https://ropsten.infura.io/';
+                break;
+            case "4":
+                link = 'https://rinkeby.infura.io/';
+                break;
+            case "42":
+                link = 'https://kovan.infura.io/';
+                break;
+            default:
+                link = null;
+        }
+        return link;
+    }
+    let link = getNetworkLink(network);
+    let web3 = new Web3(new Web3.providers.HttpProvider(link));
+    let x = setInterval(function () {
+        web3.eth.getTransactionReceipt(hash, function (err, fresult) {
+            if(fresult){
+                console.log(fresult);
+                onceDone();
+            }
+        });
+    }, 3000);
+
+    function onceDone() {
+        clearInterval(x);
+        if (callack) callack();
+    }
+}
 
 app.get('/:address',function(req,res){
     var address = req.params.address;

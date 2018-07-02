@@ -25,8 +25,6 @@ tipButton.addEventListener('click', function() {
     // or if you want to guarantee it was received, you can poll
     // for that transaction to be mined first.
     renderMessage('Thanks for the generosity!! We will forward your message');
-    let $loader = $('#loader');
-    $loader.addClass('is-active');
     var msg = document.getElementById('comment').value;
     var from = document.getElementById('donor').value;
     if(from.length === 0){
@@ -35,24 +33,29 @@ tipButton.addEventListener('click', function() {
     if(msg.length === 0){
         msg = "Sorry! No Message was Sent!!"
     }
-    // Creating Post Request for sending message
-      $.post('/msg', {
-          addr : MY_ADDRESS,
-          fr : from,
-          messa : msg,
-          ether : amount
-      }, function (response, status) {
-          $loader.removeClass('is-active');
-          if(status === 'success'){
-            alert("Message Sent");
-            window.location.href = '/';
-          }else{
-            alert("An Error Occured Could Not Send the Message");
-          }
-      });
+    web3.version.getNetwork(function (err, Id) {
+        if(err) throw err;
+        // Creating Post Request for sending message
+        $.post('/msg', {
+            addr : MY_ADDRESS,
+            fr : from,
+            messa : msg,
+            ether : amount,
+            hash : transactionHash,
+            network : Id
+        }, function (response, status) {
+            if(status === 'success'){
+                alert("Your Message Would be Sent Once the Transaction is Mined");
+                window.location.href = '/';
+            }else{
+                alert("An Error Occured Could Not Send the Message");
+            }
+        });
 
-    // url =('/msg?address='+MY_ADDRESS+'&from='+from+'&msg='+msg);
-    // window.location.href = url;
+        // url =('/msg?address='+MY_ADDRESS+'&from='+from+'&msg='+msg);
+        // window.location.href = url;
+    });
+
   });
 });
 function renderMessage (message) {
