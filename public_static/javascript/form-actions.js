@@ -11,16 +11,8 @@ $('#get').on('click', function () {
 
     if(web3.eth.accounts.length !== 0){
         $.get('/auth/' + web3.eth.accounts[0], (res) => {
-            challenge = res;
-            res[0].value = "MsgCrypto";
-            res.forEach(line => {
-                $('.challenge').append(line.name);
-                $('.challenge').append('<br>');
-                $('.challenge').append(line.value);
-                $('.challenge').append('<br>');
-                $('.challenge').append('Initiated Sign Up process.');
-            });
-
+            res[0].value = "Verify By Signing This Message";
+            challenge = res.slice(0, 1);
 
             const from = web3.eth.accounts[0];
 
